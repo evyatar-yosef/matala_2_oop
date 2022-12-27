@@ -1,6 +1,6 @@
 ﻿# matala_2_oop
 
-# overview: 
+# Overview: 
 In this assignment we were asked to implement the observer pattern by using the undoablestringbuilder class from the previous assignment to update specific text for all the customers registered in the database. We used classes to describe the sender of the updates and the receivers of the updates and to perform various actions.
 
 # Observer pattern:
@@ -14,5 +14,5 @@ This class implements the Member interface which describes the recipient of the 
 This class contains a method that is used to update this specific member according to the GroupAdmin.
  
  
-# test:
+# Test:
 We have added a test department whose role is to make sure that the functions from the various departments work as expected and in addition so that we can track the sizes of the various objects in the memory and the changes that are made in the memory during the run
