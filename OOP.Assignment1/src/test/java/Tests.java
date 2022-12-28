@@ -10,34 +10,23 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class Tests {
     public static final Logger logger = LoggerFactory.getLogger(Tests.class);
-    // stub method to check external dependencies compatibility
+    //  method to check external dependencies compatibility
     GroupAdmin ga = new GroupAdmin();
     ConcreteMember cm1 = new ConcreteMember();
     ConcreteMember cm2 = new ConcreteMember();
     UndoableStringBuilder ustb = new UndoableStringBuilder();
 
+    // check the objects' footprint.
     @Test
-    public void test(){
-        String s1 = "Alice";
-        String s2 = "Bob";
-
-        logger.info(()->JvmUtilities.objectFootprint(s1));
-
-        logger.info(()->JvmUtilities.objectFootprint(s1,s2));
-
-        logger.info(()->JvmUtilities.objectTotalSize(s1));
-
-        logger.info(() -> JvmUtilities.jvmInfo());
-    }
-
-    @Test
-    public void checkSize()
+    public void ObjectSize()
     {
         logger.info(()->JvmUtilities.objectFootprint(ga));
         ga.register(cm1);
         logger.info(()->JvmUtilities.objectFootprint(ga));
         ga.register(cm2);
         logger.info(()->JvmUtilities.objectFootprint(ga));
+        logger.info(()->JvmUtilities.objectFootprint(cm1));
+        logger.info(()->JvmUtilities.objectFootprint(cm1));
     }
 
     // Here begins the part of tests for GroupAdmin class.
@@ -47,7 +36,8 @@ public class Tests {
         logger.info(()->JvmUtilities.objectFootprint(ga));
         logger.info(()->JvmUtilities.objectTotalSize(ga));
         logger.info(()->JvmUtilities.objectTotalSize(cm1));
-
+        // appending a string to the ga and check if register() works
+        // and check the changes in the objectFootprint.
         ga.append("evyatar");
         ga.register(cm1);
         assertEquals(ga.observers.get(0),cm1,"register failed");
@@ -66,6 +56,8 @@ public class Tests {
     {
         logger.info(()->JvmUtilities.objectTotalSize(ga));
 
+        // appending a string to the ga and  registers members and check if unregister() works
+        // and check the changes in the objectFootprint.
         ga.append("evyatar");
         ga.register(cm1);
         ga.register(cm2);
@@ -87,7 +79,8 @@ public class Tests {
     {
         logger.info(()->JvmUtilities.objectTotalSize(ga));
         logger.info(()->JvmUtilities.objectTotalSize(cm1));
-
+        // appending a string to the ga and  registers members and check if insert() works
+        // and check the changes in the objectFootprint.
         ga.append("foot");
         ga.insert(4,"ball");
         assertEquals("football",ga.toString(),"test failed");
@@ -111,6 +104,8 @@ public class Tests {
         logger.info(()->JvmUtilities.objectTotalSize(cm1));
         logger.info(()->JvmUtilities.objectTotalSize(cm2));
 
+        // appending a string to the ga and  registers members and check if append() works
+        // and check the changes in the objectFootprint.
         ga.append("evyatar");
         ga.register(cm1);
         assertEquals("evyatar",ga.toString(),"test failed");
@@ -142,6 +137,8 @@ public class Tests {
         assertEquals("atar is very", ga.toString(),"test failed");
         assertEquals(ga.observers.get(0).toString(),ga.toString(),"test failed");
 
+        // appending a string to the ga and  registers members and check if delete() works
+        // and check the changes in the objectFootprint.
         ga.delete(8,12);
         ga.register(cm2);
         assertEquals("atar is ", ga.toString(),"test failed");
@@ -161,7 +158,8 @@ public class Tests {
         logger.info(() -> JvmUtilities.jvmInfo());
         logger.info(()->JvmUtilities.objectTotalSize(ga));
 
-
+        // appending a string to the ga and registers members and check if undo() works
+        // and check the changes in the objectFootprint.
         ga.register(cm1);
         ga.append("test");
         ga.register(cm2);
@@ -193,6 +191,8 @@ public class Tests {
     void update()
     {
         logger.info(()->JvmUtilities.objectTotalSize(ustb));
+
+        // check if update() method works and the changes in the ustb objectTotalSize.
 
         ustb.append("evyatar");
         cm1.update(ustb);
